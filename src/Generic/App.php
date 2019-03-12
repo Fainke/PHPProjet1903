@@ -2,11 +2,31 @@
 namespace Generic;
 
 use Appli\Controller\HomeController;
+use Generic\Middlewares\TrailingSlashMiddleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 class App implements RequestHandlerInterface {
+
+    /**
+     * @var int
+     */
+    private $compteurMiddleware;
+
+    /**
+     * @var MiddlewareInterface[]
+     */
+    private $middlewares;
+
+    public function __construct(array $middlewares)
+    {
+        // On initialise le compteur de middleware à 0
+        $this->compteurMiddleware = 0;
+
+        $this->middlewares = $middlewares;
+    }
 
     /**
      * @param ServerRequestInterface $request
@@ -14,7 +34,15 @@ class App implements RequestHandlerInterface {
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $controller = new HomeController();
-        return $controller->process($request, $this);
+        // On récupère le middleware à appeler
+        $middleware = $this->middlewares[$this->compteurMiddleware];
+
+        // Incrémentation du compteur
+        $this->compteurMiddleware++;
+
+        // On appelle le middleware
+        $response = $middleware->process($request, $this);
+
+        return $response;
     }
 }
