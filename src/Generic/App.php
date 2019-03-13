@@ -1,14 +1,13 @@
 <?php
 namespace Generic;
 
-use Appli\Controller\HomeController;
-use Generic\Middlewares\TrailingSlashMiddleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class App implements RequestHandlerInterface {
+class App implements RequestHandlerInterface
+{
 
     /**
      * @var int

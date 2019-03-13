@@ -2,12 +2,10 @@
 namespace Generic\Middlewares;
 
 use GuzzleHttp\Psr7\Response;
-use Psr\Http\Message\ {
-    ResponseInterface, ServerRequestInterface
-};
-use Psr\Http\Server\ {
-    MiddlewareInterface, RequestHandlerInterface
-};
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 class TrailingSlashMiddleware implements MiddlewareInterface
 {
@@ -27,24 +25,18 @@ class TrailingSlashMiddleware implements MiddlewareInterface
         $lastCharacter = substr($url, -1);
 
         // Si le dernière caractère est un slash ("/")
-        if($lastCharacter === '/') {
+        if ($lastCharacter === '/') {
             // Déterminer la nouvelle URL
             $newURL = substr($url, 0, -1);
-            var_dump('Nouvelle :' . $newURL);
 
             // Rediriger
             $response = new Response(301, [
-                'location' => $newURL
+                'Location' => $newURL
             ]);
             return $response;
-
         } else {
             // Sinon on appelle le middleware suivant
             return $handler->handle($request);
         }
-
-
-        var_dump('Ancienne :' . $url);
-        die('On est dans TrailingSlash Middleware');
     }
 }
