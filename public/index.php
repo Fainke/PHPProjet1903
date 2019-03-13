@@ -1,5 +1,6 @@
 <?php
 
+use Appli\Controller\ContactController;
 use Appli\Controller\HomeController;
 use Generic\App;
 use Generic\Middlewares\TrailingSlashMiddleware;
@@ -15,7 +16,8 @@ $request = ServerRequest::fromGlobals();
 
 // Ajout des routes dans le routeur
 $router = new Router();
-$router->addRoute('/home', new HomeController(), 'homepage');
+$router->addRoute('/', new HomeController(), 'homepage');
+$router->addRoute('/contact', new ContactController(), 'contact');
 
 // Création de la réponse
 $app = new App([

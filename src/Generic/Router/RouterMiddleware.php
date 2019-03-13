@@ -9,9 +9,6 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class RouterMiddleware implements MiddlewareInterface
 {
-    /**
-     * @var Router
-     */
     private $router;
 
     public function __construct(Router $router)
