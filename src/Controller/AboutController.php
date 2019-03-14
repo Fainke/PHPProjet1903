@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: stagiaire
- * Date: 13/03/2019
- * Time: 16:40
- */
-
 namespace Appli\Controller;
 
 
@@ -14,15 +7,11 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class ContactController extends Controller
+class AboutController extends Controller
 {
-    /**
-     * @param ServerRequestInterface $request
-     * @param RequestHandlerInterface $handler
-     * @return ResponseInterface
-     */
+
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        return $this->render('contact.twig');
+        return $this->render('<h1>Page à propos</h1>');
     }
 }
