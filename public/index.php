@@ -1,6 +1,7 @@
 <?php
 
 use Appli\Controller\AboutController;
+use Appli\Controller\CategoryController;
 use Appli\Controller\ContactController;
 use Appli\Controller\HomeController;
 use Generic\App;
@@ -28,6 +29,7 @@ $router = $container->get(Router::class);
 $router->addRoute('/', $container->get(HomeController::class), 'homepage');
 $router->addRoute('/contact', $container->get(ContactController::class), 'contact');
 $router->addRoute('/a-propos', $container->get(AboutController::class), 'about');
+$router->addRoute('/categories', $container->get(CategoryController::class), 'category_list');
 
 
 // Création de la réponse

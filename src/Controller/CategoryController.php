@@ -9,9 +9,8 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class HomeController extends Controller
+class CategoryController extends Controller
 {
-
     /**
      * @var Connection
      */
@@ -25,25 +24,22 @@ class HomeController extends Controller
     }
 
     /**
-     * @param ServerRequestInterface $request
-     * @param RequestHandlerInterface $handler
-     * @return ResponseInterface
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * Process an incoming server request.
+     *
+     * Processes an incoming server request in order to produce a response.
+     * If unable to produce the response itself, it may delegate to the provided
+     * request handler to do so.
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         // Récupération des produits en BDD
-        $products = $this->connection->query(
-            "SELECT * FROM product",
-            Product::class
+        $categories = $this->connection->query(
+            "SELECT * FROM category"
         );
 
-
         // Envoi des produits à la vue
-        return $this->render('home.twig', [
-            'products' => $products
+        return $this->render('category.twig', [
+            'categories' => $categories
         ]);
     }
 }

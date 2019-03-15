@@ -1,5 +1,6 @@
 <?php
 
+use Generic\Database\Connection;
 use Generic\Renderer\TwigRenderer;
 
 return [
@@ -13,6 +14,13 @@ return [
         return new TwigRenderer(
             $container->get('root-dir') .  '/templates'
         );
-    }
+    },
 
+    Connection::class => function(\DI\Container $container) {
+        return new Connection(
+            $container->get('database_name'),
+            $container->get('database_user'),
+            $container->get('database_pass')
+        );
+    }
 ];
