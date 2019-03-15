@@ -15,23 +15,25 @@ $rootDir = dirname(__DIR__);
 // Chargement de l'autoloader
 require_once $rootDir .  '/vendor/autoload.php';
 
+// Création du container
+$builder = new \DI\ContainerBuilder();
+$builder->addDefinitions($rootDir . '/config/config.php');
+$container = $builder->build();
+
 // Création de le requête
 $request = ServerRequest::fromGlobals();
 
-// Initialiser TWIG
-$twig = new TwigRenderer($rootDir .  '/templates');
-
 // Ajout des routes dans le routeur
-$router = new Router();
-$router->addRoute('/', new HomeController($twig), 'homepage');
-$router->addRoute('/contact', new ContactController($twig), 'contact');
-$router->addRoute('/a-propos', new AboutController($twig), 'about');
+$router = $container->get(Router::class);
+$router->addRoute('/', $container->get(HomeController::class), 'homepage');
+$router->addRoute('/contact', $container->get(ContactController::class), 'contact');
+$router->addRoute('/a-propos', $container->get(AboutController::class), 'about');
 
 
 // Création de la réponse
 $app = new App([
-    new TrailingSlashMiddleware(),
-    new RouterMiddleware($router)
+    $container->get(TrailingSlashMiddleware::class),
+    $container->get(RouterMiddleware::class)
 ]);
 $response = $app->handle($request);
 

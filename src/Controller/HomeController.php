@@ -10,8 +10,6 @@ class HomeController extends Controller
 {
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-
-
         $products = [
             [
                 "id" => 1,

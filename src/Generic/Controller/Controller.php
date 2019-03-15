@@ -2,6 +2,7 @@
 namespace Generic\Controller;
 
 use Generic\Renderer\TwigRenderer;
+use Generic\Router\Router;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -31,9 +32,9 @@ abstract class Controller implements MiddlewareInterface
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    protected function render(string $view, array $variables = []): ResponseInterface {
+    protected function render(string $view, array $variables = []): ResponseInterface
+    {
 
         return new Response(200, [], $this->twig->render($view, $variables));
     }
-
 }
